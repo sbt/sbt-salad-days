@@ -16,7 +16,12 @@ object SaladDaysPlugin extends AutoPlugin {
           !v.startsWith("scripts/inkuire")
         }
       } else {
-        (Compile / packageDoc / mappings).value
+        val orig = (Compile / packageDoc / mappings).value
+        orig.filter { case (_, v) =>
+          !v.endsWith(".eot") &&
+          !v.endsWith(".ttf") &&
+          !v.endsWith(".woff")
+        }
       }
     }
   )
